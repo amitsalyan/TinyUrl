@@ -35,11 +35,21 @@ public class TinyUrlAlaytics extends RESTApi{
 	}
 	
 	@GET
-	@Path("/usage/{date}")
+	@Path("/usage/days/{days}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public Map<String, String> usageDate() throws NamingException {
+	public Map<String, String> usageDays() throws NamingException {
 		APMSL apmSl = (APMSL) new InitialContext().lookup("java:app/TinyUrl/APMSLBean!com.tiny.sessionbeans.APMSL");
 		Map<String, String> response = apmSl.serverdetails();
 		return  response;
 	}
+	
+	@GET
+	@Path("/active")
+	@Produces(MediaType.TEXT_PLAIN)
+	public Map<String, String> active() throws NamingException {
+		APMSL apmSl = (APMSL) new InitialContext().lookup("java:app/TinyUrl/APMSLBean!com.tiny.sessionbeans.APMSL");
+		Map<String, String> response = apmSl.serverdetails();
+		return  response;
+	}
+	
 }
