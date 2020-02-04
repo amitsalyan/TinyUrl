@@ -48,6 +48,8 @@ public class APIFilter implements Filter{
 	public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) arg0;
 		HttpServletResponse res = (HttpServletResponse) arg1;
+		res.setHeader("Access-Control-Allow-Origin", "*");
+		res.setHeader("Access-Control-Allow-HEADERS", "Access-Control-Allow-Origin,Access-Control-Allow-HEADERS,Content-Type,Accept");
 		isTinyUrl(req, res);
 		
 		String ipaddress = "";
@@ -68,63 +70,25 @@ public class APIFilter implements Filter{
 		arg2.doFilter(req, res);
 	}
 
-	private void isTinyUrl(HttpServletRequest req, HttpServletResponse res) {
+	private void isTinyUrl(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		String uri = req.getRequestURI();
+		TinyUrlLocal tinyUrlLocal = BeanServiceUtil.getBean(BeanServiceUtil.TINY_URL_LOCAL);
 		if(uri.split("/").length==2) {
-			TinyUrlLocal tinyUrlLocal = BeanServiceUtil.getBean(BeanServiceUtil.TINY_URL_LOCAL);
 			String redirectUrl = tinyUrlLocal.genTinyUrl(uri.split("/")[1]);
 			if(redirectUrl!=null) {
-				try {
+				
 					res.sendRedirect(redirectUrl);
 					return;
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 			}
-		}else {
-			return;
-		}		
+		}
 	}
 
 
-	/* (non-Javadoc)
-	 * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
-	 */
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-		//Init get the whitelisted ip adresses that can access the resources
-		//AppPropertySL appSL;
-		//try {
-			//appSL = (AppPropertySL) new InitialContext().lookup("java:app/PortalApi/AppPropertySLBean!com.aldera.sessionbeans.AppPropertySL");
-			//ipAddresses=appSL.getIpAdresses();
-			//API_KEY=appSL.getAPIKey();
-		/*} catch (NamingException e) {
-			LOGGER.error("API Properties not loaded, Portal API may not respond.");
-			e.printStackTrace();
-		}*/
+		// TODO Auto-generated method stub
 		
-	}
-	
-	private boolean validateIP(String remoteAddr, String uri) {
-		if(uri.contains("/api/apm")){
-			return true;
-		}
-		
-		if (ipAddresses.get(0).equalsIgnoreCase("*")) {
-			return true;
-		}
-		for (String allowedIP : ipAddresses) {
-			if (remoteAddr.equalsIgnoreCase(allowedIP)) {
-				return true;
-			}
-			if (allowedIP.indexOf("*") > 0) {
-				if (remoteAddr.startsWith(allowedIP.split("\\*")[0])) {
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 
