@@ -26,6 +26,7 @@ public class TinyUrlBean implements TinyUrlLocal{
 	@Override
 	public TinyUrlEB genTinyUrl(TinyUrlEB tinyUrlEB){
 		if(!isValidUrl(tinyUrlEB)){
+			tinyUrlEB.setTinyUrl(null);
 			tinyUrlEB.setStatus(TinyUrlStatus.INVALID.toString());
 		}else {
 			tinyUrlEB.setStatus(TinyUrlStatus.ACTIVE.toString());

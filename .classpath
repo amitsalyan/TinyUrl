@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/JBoss EAP 6.1+ Runtime">
-		<attributes>
-			<attribute name="owner.project.facets" value="jst.web"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="ExternalResources/container-lib/resteasy-jaxrs-2.3.7.Final-redhat-2.jar"/>
@@ -17,10 +12,19 @@
 	<classpathentry kind="lib" path="ExternalResources/container-lib/resteasy-multipart-provider-2.3.7.Final-redhat-2.jar"/>
 	<classpathentry kind="lib" path="ExternalResources/container-lib/json-20140107.jar"/>
 	<classpathentry kind="lib" path="ExternalResources/container-lib/log4j-jboss-logmanager-1.0.2.Final-redhat-1.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="ExternalResources/container-lib/jackson-annotations-2.9.5.redhat-2.jar"/>
 	<classpathentry kind="lib" path="ExternalResources/container-lib/jackson-core-2.9.5.redhat-2.jar"/>
 	<classpathentry kind="lib" path="ExternalResources/container-lib/jackson-databind-2.9.5.redhat-2.jar"/>
 	<classpathentry kind="lib" path="ExternalResources/container-lib/jboss-servlet-api_3.0_spec-1.0.2.Final-redhat-1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/JBoss EAP 7.2 Runtime">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.web"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/Java SE 8 [1.8.0_241]">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

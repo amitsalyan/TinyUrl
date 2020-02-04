@@ -27,15 +27,6 @@ public class TinyUrlApi extends RESTApi{
 	
 	TinyUrlLocal tinyUrlLocal = BeanServiceUtil.getBean(BeanServiceUtil.TINY_URL_LOCAL);
 	
-	@GET
-	@Path("/serverdetails")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Map<String, String> serverdetails() throws NamingException {
-		APMSL apmSl = (APMSL) new InitialContext().lookup("java:app/TinyUrl/APMSLBean!com.tiny.sessionbeans.APMSL");
-		Map<String, String> response = apmSl.serverdetails();
-		return  response;
-	}
-	
 	@POST
 	@Path("/genTinyLink")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -44,7 +35,7 @@ public class TinyUrlApi extends RESTApi{
 		System.out.println("tinyUrl.getUrl()-->"+tinyUrl.getUrl());
 		tinyUrl.setEntryIP(req.getRemoteAddr());
 		tinyUrl =  tinyUrlLocal.genTinyUrl(tinyUrl);
-		tinyUrl.setTinyUrl(req.getHeader("origin")+ "/" + tinyUrl.getTinyUrl());
+		if(tinyUrl.getTinyUrl()!=null)tinyUrl.setTinyUrl(req.getHeader("origin")+ "/" + tinyUrl.getTinyUrl());
 		return tinyUrl;
 	}
 }
