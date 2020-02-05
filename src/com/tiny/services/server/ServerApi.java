@@ -12,16 +12,20 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
 
+import com.tiny.services.RESTApi;
 import com.tiny.sessionbeans.APMSL;
+import com.tiny.sessionbeans.TinyUrlLocal;
+import com.tiny.util.BeanServiceUtil;
 
-
-public class ServerApi{
+@Path("/serverdetails")
+public class ServerApi extends RESTApi{
 	
+	APMSL apmSl = BeanServiceUtil.getBean(BeanServiceUtil.APM_SL);
+
 	@GET
-	@Path("/serverdetails")
+	@Path("/jvm")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Map<String, String> serverdetails() throws NamingException {
-		APMSL apmSl = (APMSL) new InitialContext().lookup("java:app/TinyUrl/APMSLBean!com.aldera.sessionbeans.APMSL");
 		Map<String, String> response = apmSl.serverdetails();
 		return  response;
 	}

@@ -32,9 +32,7 @@ public class APIFilter implements Filter{
 	private String API_KEY;
 	private List<String> ipAddresses;
 
-	/* (non-Javadoc)
-	 * @see javax.servlet.Filter#destroy()
-	 */
+	
 	@Override
 	public void destroy() {
 		
@@ -51,35 +49,17 @@ public class APIFilter implements Filter{
 		res.setHeader("Access-Control-Allow-Origin", "*");
 		res.setHeader("Access-Control-Allow-HEADERS", "Access-Control-Allow-Origin,Access-Control-Allow-HEADERS,Content-Type,Accept");
 		isTinyUrl(req, res);
-		
-		String ipaddress = "";
-		
-		if(req.getHeader("X-FORWARDED-FOR")!=null){
-			ipaddress = req.getHeader("X-FORWARDED-FOR");
-		} else{
-			ipaddress = req.getRemoteAddr();
-		}
-		LOGGER.debug("incoming IP:"+ipaddress);
-		//if (req.getHeader("API-KEY")!=null && req.getHeader("API-KEY").equals(API_KEY)  && ipAddresses.contains(req.getRemoteAddr())){
-		/*if (validateIP(ipaddress, uri)){
-			arg2.doFilter(req, res);
-		}else{
-			LOGGER.info("Inavlid access tp API;"+uri+" from IP"+ipaddress);
-			res.sendError(HttpServletResponse.SC_NOT_FOUND);
-		}*/
 		arg2.doFilter(req, res);
 	}
 
-	private void isTinyUrl(HttpServletRequest req, HttpServletResponse res) throws IOException {
+	private void isTinyUrl(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		String uri = req.getRequestURI();
 		TinyUrlLocal tinyUrlLocal = BeanServiceUtil.getBean(BeanServiceUtil.TINY_URL_LOCAL);
 		if(uri.split("/").length==2) {
 			String redirectUrl = tinyUrlLocal.genTinyUrl(uri.split("/")[1]);
 			if(redirectUrl!=null) {
-				
-					res.sendRedirect(redirectUrl);
+					req.getRequestDispatcher(redirectUrl).forward(req, res);
 					return;
-				
 			}
 		}
 	}

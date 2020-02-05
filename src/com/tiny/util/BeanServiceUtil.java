@@ -15,6 +15,7 @@ public class BeanServiceUtil {
 	/** The logger. */
 	private static Logger LOGGER=Logger.getLogger(BeanServiceUtil.class);
 	public static String TINY_URL_LOCAL = "java:app/TinyUrl/TinyUrlBean!com.tiny.sessionbeans.TinyUrlLocal";
+	public static String APM_SL = "java:app/TinyUrl/APMSLBean!com.tiny.sessionbeans.APMSL";
 
 	/**
 	 * Gets the initial context.

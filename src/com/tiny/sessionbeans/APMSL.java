@@ -8,12 +8,12 @@ import javax.ejb.Local;
 @Local
 public interface APMSL {
 
-	Map<String, String> claimsearch(String name);
-
-	Map<String, String> providersearch(String name);
-
-	Map<String, String> eligibilitysearch(String name);
-
 	Map<String, String> serverdetails();
+
+	Integer tinyAPiUsage();
+
+	Integer usageDate(String yyyymmdd);
+
+	Integer usageDays(String days);
 
 }
