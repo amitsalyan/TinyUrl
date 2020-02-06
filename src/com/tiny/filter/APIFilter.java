@@ -58,7 +58,7 @@ public class APIFilter implements Filter{
 		if(uri.split("/").length==2) {
 			String redirectUrl = tinyUrlLocal.genTinyUrl(uri.split("/")[1]);
 			if(redirectUrl!=null) {
-					req.getRequestDispatcher(redirectUrl).forward(req, res);
+					res.sendRedirect(redirectUrl);
 					return;
 			}
 		}
